@@ -23,7 +23,11 @@ class ImapFilter
 
   def imap_connection
     @imap ||= Net::IMAP.new(ENV['IMAP_SERVER'],ssl: true).tap do |imap|
-      imap.authenticate('LOGIN', ENV['IMAP_USER'] , ENV['PASSWORD'])
+      begin
+        imap.authenticate('LOGIN', ENV['IMAP_USER'] , ENV['PASSWORD'])
+      rescue
+        imap.login(ENV['IMAP_USER'] , ENV['PASSWORD'])
+      end
     end
   end
 

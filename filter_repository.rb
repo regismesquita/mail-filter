@@ -4,8 +4,8 @@ require 'json'
 
 class FilterRepository
   FILTER_CATEGORIES = [:sender, :receiver, :subject, :processed_uids]
-  BUCKET = 'rdsm.filtering'
-  KEY = 'filters'
+  BUCKET = ENV['AWS_BUCKET']
+  KEY = ENV['AWS_OBJECT_KEY']
 
   def for(folder:)
     @folder = folder
